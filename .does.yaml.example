@@ -1,0 +1,24 @@
+# Example .does.yaml — place in your project root
+tasks:
+  dev:
+    description: Start development server
+    run: npm run dev
+
+  test:unit:
+    description: Run unit tests
+    run: jest --watch
+
+  build:
+    description: Production build
+    run:
+      - npm run lint
+      - npm run build
+
+  deploy:staging:
+    description: Deploy to staging
+    env:
+      NODE_ENV: production
+      TARGET: staging
+    run:
+      - npm run build
+      - rsync -av dist/ user@staging-host:/var/www/app
